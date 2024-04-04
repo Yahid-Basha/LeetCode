@@ -1,45 +1,33 @@
 class Solution {
     public boolean isValid(String s) {
-        int p = 0;
-        int c = 0;
-        int sq = 0;
-        // // if (s == "[(])") return false;
-        if (s.indexOf("[)")!= -1) return false;
-        if (s.indexOf("{)")!= -1) return false;
-        if (s.indexOf("{]")!= -1) return false;
-        if (s.indexOf("(]")!= -1) return false;
-        if (s.indexOf("(}")!= -1) return false;
-        if (s.indexOf("[}")!= -1) return false;
-        if (s.indexOf("[([]])")!= -1) return false;
-        
-        for( int i = 0; i<s.length(); i++){
-            char ch = s.charAt(i);
-            switch (ch){
-                case '(':
-                    p+=1;
-                    break;
-                case ')':
-                    if(p==0) return false;
-                    
-                    p-=1;
-                    break;
-                case '{':
-                    c+=1;
-                    break;
-                case '}':
-                    if(c==0) return false;
-                    c-=1;
-                    break;
-                case '[':
-                    sq+=1;
-                    break;
-                case ']':
-                    if(sq==0) return false;
-                    sq-=1;
-                    break;
+        Stack<Character> st = new Stack<>();
+        for(int i =0; i<s.length();i++){
+            char c = s.charAt(i);
+            if(c == '(' || c == '{' || c == '[' ){
+                st.push(c);
+            } else {
+            if(st.isEmpty()){
+                return false;
+            } 
+            else if(c == ')'){
+                if (st.pop() != '('){
+                    return false;
+                }
+            } else if(c == '}'){
+                if (st.pop() != '{'){
+                    return false;
+                }
+            } else if(c == ']'){
+                if (st.pop() != '['){
+                    return false;
+                }
             }
         }
-        if(sq==0&& c==0 && p == 0) return true;
-        return false;
+            }
+        if(st.isEmpty()){
+            return true;
+        } else{
+            return false;
+        }
     }
 }
