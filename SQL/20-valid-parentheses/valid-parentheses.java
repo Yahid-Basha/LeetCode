@@ -5,11 +5,9 @@ class Solution {
             char c = s.charAt(i);
             if(c == '(' || c == '{' || c == '[' ){
                 st.push(c);
-            } else {
-            if(st.isEmpty()){
+            } else if(st.isEmpty()){
                 return false;
-            } 
-            else if(c == ')'){
+            } else if(c == ')'){
                 if (st.pop() != '('){
                     return false;
                 }
@@ -23,11 +21,6 @@ class Solution {
                 }
             }
         }
-            }
-        if(st.isEmpty()){
-            return true;
-        } else{
-            return false;
-        }
+        return st.isEmpty();
     }
 }
