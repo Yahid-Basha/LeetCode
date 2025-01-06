@@ -5,7 +5,6 @@ class Solution {
 
         while(left <= right){
             int mid = left + (right-left)/2;
-            System.out.println(mid);
             if(nums[mid] == target){
                 return mid;
             }else if(nums[mid] < target){
