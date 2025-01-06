@@ -3,24 +3,22 @@ class Solution {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return false;
         }
-
-        int Vstart = 0;
-        int Vend = matrix.length-1;
-        int Vmid = 0;
-        while(Vstart <= Vend){
-            Vmid = Vstart + (Vend-Vstart)/2;
-            if(matrix[Vmid][0] == target){
-                return true;
-            } else if(matrix[Vmid][0] > target){
-                Vend = Vmid-1;
-            } else {
-                Vstart = Vmid+1;
+        int top = 0;
+        int bot = matrix.length-1;
+        while(top <= bot){
+            int row = top + (bot-top)/2;
+            if(matrix[row][matrix[0].length-1] < target){
+                top = row+1;
+            }else if(matrix[row][0] > target){
+                bot = row-1;
+            }else{
+                break;
             }
         }
-        int row = Vend;
-        if(row < 0){
-            return false;
-        }
+
+        if(top > bot) return false;
+        int row = top + (bot-top)/2;
+        
         int start = 0;
         int end = matrix[row].length-1;
         while(start <= end){
