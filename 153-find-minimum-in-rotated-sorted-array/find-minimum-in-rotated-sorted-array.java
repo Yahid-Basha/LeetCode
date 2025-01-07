@@ -1,11 +1,11 @@
 class Solution {
     public int findMin(int[] nums) {
-        int left = 0, right = nums.length;
-        int target = Integer.MAX_VALUE;
         int n = nums.length;
+        int left = 0, right = n-1;
+        int target = Integer.MAX_VALUE;
         while(left <= right){
             int mid = left + (right-left)/2;
-            if(nums[mid] < target) {
+            if(nums[mid] < target){
                 target = nums[mid];
             }
             if(nums[mid] > nums[n-1]){
@@ -14,6 +14,7 @@ class Solution {
                 right = mid - 1;
             }
         }
+
         return target;
     }
 }
