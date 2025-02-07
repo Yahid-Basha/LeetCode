@@ -1,13 +1,12 @@
 class Solution {
     public int removeElement(int[] nums, int val) {
-        int count = nums.length;
-        Arrays.sort(nums);
-        for(int i=0; i<nums.length; i++){
-            if (nums[i] == val){
-                nums[i] = nums[count-1];
-                count--;
+       int index = 0;
+       for(int num : nums){
+            if(num != val){
+                nums[index] = num;
+                index++;
             }
-        }
-        return count;
+       }
+       return index;
     }
 }
