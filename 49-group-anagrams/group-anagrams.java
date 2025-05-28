@@ -23,10 +23,6 @@ class Solution {
     public String hashString(String str){
         char[] arr = str.toCharArray();
         Arrays.sort(arr);
-        String s = new String("");
-        for(char i: arr){
-            s+=i;
-        }
-        return s;
+        return new String(arr);
     }
 }
