@@ -1,26 +1,16 @@
 class Solution {
-    Boolean[] dp;
+    boolean[] dp;
     public boolean wordBreak(String s, List<String> wordDict) {
         Set<String> set = new HashSet<>(wordDict);
-        dp = new Boolean[s.length()+1];
-        return solve(s, 0, set);
-        
-    }
-    public boolean solve(String s, int start, Set<String> dict){
-        // base case
-        if(start == s.length()) return true;
-
-        if(dp[start] != null) return dp[start];
-
-        //select the first word
-        for(int i = start+1; i <= s.length(); i++){
-            if(dict.contains(s.substring(start, i))){
-                if(solve(s, i, dict)){
-                    return dp[start]=true;
-                } 
+        dp = new boolean[s.length()+1];
+        dp[0] = true;
+        for(int end = 0; end <= s.length(); end++){
+            for(int start = 0; start <= end; start++){
+                if(dp[start] && set.contains(s.substring(start, end))){
+                    dp[end] = true;
+                }
             }
         }
-        return dp[start]=false;
-        
+        return dp[s.length()];
     }
 }
