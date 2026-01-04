@@ -11,7 +11,7 @@ class Solution {
             return;
         }
 
-        for(int next = i; next <= n; next++){
+        for(int next = i; next <= n-(k-curr.size())+1; next++){
             curr.add(next);
             solve(next+1, n, k, curr);
             curr.remove(curr.size()-1);
