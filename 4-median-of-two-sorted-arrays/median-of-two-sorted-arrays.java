@@ -9,10 +9,16 @@ class Solution {
 
         for(int count = 0; count <= mid; count++){
             m2 = m1;
-            if (i < m && (j >= n || nums1[i] <= nums2[j])) {
-                    m1 = nums1[i++];
-                }else{
+            if(i < m && j < n){
+                if(nums1[i] > nums2[j]){
                     m1 = nums2[j++];
+                }else{
+                    m1 = nums1[i++];
+                }
+            }else if(i < m){
+                m1 = nums1[i++];
+            }else{
+                m1 = nums2[j++];
             }
         }
         if((m+n)%2 == 0){
