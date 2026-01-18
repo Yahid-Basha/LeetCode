@@ -1,0 +1,1 @@
+<h2>number-of-alternating-xor-partitions Notes</h2><hr>[ Time taken: 15 hrs 20 m 38 s ]
