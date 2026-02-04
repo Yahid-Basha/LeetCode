@@ -5,11 +5,11 @@ class Solution {
 
         int mid = (m + n)/2;
         int m1 = -1, m2 = -1;
-        int i = 0, j= 0;
+        int i = 0, j = 0;
 
         for(int count = 0; count <= mid; count++){
             m2 = m1;
-            if(i < m && j < n){
+            if( i < m && j < n){
                 if(nums1[i] > nums2[j]){
                     m1 = nums2[j++];
                 }else{
