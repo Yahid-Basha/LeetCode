@@ -25,11 +25,11 @@ class Solution {
                     for(String node: map.get(key)){
                         if(node.equals(endWord)) return level+1;
                         if(!visited.contains(node)){
+                            visited.add(s);
                             queue.offer(node);
                         }
                     }
                 }
-                visited.add(s);
             }
             level++;
         }
