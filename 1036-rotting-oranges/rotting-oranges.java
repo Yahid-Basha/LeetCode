@@ -1,39 +1,40 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int fresh = 0;
-        int time = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        Queue<int[]> que = new LinkedList<>();
+        Queue<int[]> queue = new LinkedList<>();
+        int freshCount = 0;
 
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(grid[i][j] == 1) fresh++;
-                if(grid[i][j] == 2) que.offer(new int[] {i, j});
-            }
-        }
-
-        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-        
-        while(!que.isEmpty() && fresh > 0){
-            int size = que.size();
-            for(int i = 0; i < size; i++){
-                int[] curr = que.poll();
-                int row = curr[0];
-                int col = curr[1];
-
-                for(int[] dir: directions){
-                    int r = row + dir[0];
-                    int c = col + dir[1];
-                    if(r >= 0 && r < m && c >= 0 && c < n && grid[r][c] == 1){
-                        grid[r][c] = 2;
-                        fresh--;
-                        que.offer(new int[]{r, c});
-                    }
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == 2){
+                    queue.offer(new int[]{i, j});
+                }else if(grid[i][j] == 1){
+                    freshCount++;
                 }
             }
-            time++;
         }
-        return fresh == 0 ? time : -1;
+        if(freshCount == 0) return 0;
+        return bfs(grid, queue, freshCount);
     }
+        int bfs(int[][] grid, Queue<int[]> queue, int freshCount){
+            int[][] dirs = {{0, 1},{0, -1}, {1, 0}, {-1, 0}};
+            int time = 0;
+            while(!queue.isEmpty()){
+                boolean rotted = false;
+                int size = queue.size();
+                for(int i = 0; i < size; i++){
+                    int[] curr = queue.poll();
+                    for(int[] dir : dirs){
+                        int r = curr[0]+dir[0], c = curr[1]+dir[1];
+                        if(r >= 0 && c >= 0 && r < grid.length && c < grid[0].length && grid[r][c] == 1){
+                            queue.offer(new int[]{r, c});
+                            grid[r][c] = 2;
+                            freshCount--;
+                            rotted = true;
+                        }
+                    }
+                }
+                if(rotted) time++;
+            }
+            return freshCount > 0 ? -1 : time;
+        }
 }
