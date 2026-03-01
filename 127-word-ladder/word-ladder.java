@@ -1,5 +1,8 @@
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> wordsSet = new HashSet<>(wordList);
+        if(!wordsSet.contains(endWord)) return 0;
+        
         Set<String> visited = new HashSet<>();
         Map<String, List<String>> map = new HashMap<>();
         for(String s: wordList){
