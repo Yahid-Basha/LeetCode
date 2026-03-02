@@ -8,14 +8,12 @@ class Solution {
         while(!minHeap.isEmpty()){
             int[] curr = minHeap.poll();
             visited[curr[0]][curr[1]] = true;
-            System.out.print(curr[2]+" ");
-            time = Math.max(time, curr[2]);
-            if(curr[0] == grid.length -1 && curr[1] == grid[0].length-1 ) return time;
+            if(curr[0] == grid.length -1 && curr[1] == grid[0].length-1 ) return curr[2];
             for(int dir[]: dirs){
                 int r = curr[0]+dir[0];
                 int c = curr[1]+dir[1];
                 if(c >= 0 && r >= 0 && c < grid[0].length && r < grid.length && !visited[r][c]){
-                    minHeap.offer(new int[]{r, c, grid[r][c]});
+                    minHeap.offer(new int[]{r, c, Math.max(curr[2], grid[r][c])});
                 }
             }
         }
