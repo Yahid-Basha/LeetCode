@@ -10,13 +10,11 @@ class Solution {
             ans.add(sb.toString());
             return;
         }
-        for(int i = start; i < digits.length(); i++){
-            String s = phone[digits.charAt(i)-'2'];
-            for(int j = 0; j < s.length(); j++){
-                sb.append(s.charAt(j));
-                dfs(digits, phone, i+1, sb, ans);
-                sb.deleteCharAt(sb.length()-1);
-            }
+        String s = phone[digits.charAt(start)-'2'];
+        for(int j = 0; j < s.length(); j++){
+            sb.append(s.charAt(j));
+            dfs(digits, phone, start+1, sb, ans);
+            sb.deleteCharAt(sb.length()-1);
         }
     }
 }
