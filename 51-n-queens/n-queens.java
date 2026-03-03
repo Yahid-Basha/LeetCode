@@ -4,11 +4,15 @@ class Solution {
         for(char[] row: grid){
             Arrays.fill(row, '.');
         }
+        Set<Integer> cols = new HashSet<>();
+        Set<Integer> posDiag = new HashSet<>();
+        Set<Integer> negDiag = new HashSet<>();
+
         List<List<String>> res = new ArrayList<>();
-        dfs(grid, 0, n, res);
+        dfs(grid, 0, n, res, cols, posDiag, negDiag);
         return res;
     }
-    void dfs(char[][] grid, int r, int n, List<List<String>> res){
+    void dfs(char[][] grid, int r, int n, List<List<String>> res,  Set<Integer> cols,  Set<Integer> posDiag,  Set<Integer> negDiag){
         if(r == n){
             List<String> ans = new ArrayList<>();
             for(char[] arr: grid){
@@ -18,32 +22,20 @@ class Solution {
             return;
         }
         for(int i = 0; i < n; i++){
-            if(isValid(grid, r, i, n)){
-                grid[r][i] = 'Q';
-                dfs(grid, r+1, n, res);
-                grid[r][i] = '.';
-            }
+            if(cols.contains(i) || posDiag.contains(r+i) || negDiag.contains(r-i)) continue;
+
+            cols.add(i);
+            posDiag.add(r+i);
+            negDiag.add(r-i);
+
+            grid[r][i] = 'Q';
+            dfs(grid, r+1, n, res, cols, posDiag, negDiag);
+            grid[r][i] = '.';
+
+            cols.remove(i);
+            posDiag.remove(r+i);
+            negDiag.remove(r-i);
+            
         }
-    }
-    boolean isValid(char[][] grid, int r, int c, int n){
-        for(int i = 0; i < r; i++){
-            if(grid[i][c] == 'Q') return false;
-        }
-        for(int j = 0; j < c; j++){
-            if(grid[r][j] == 'Q') return false;
-        }
-        int i = r-1, j = c-1;
-        while(j >= 0 && i >= 0){
-            if(grid[i][j] == 'Q') return false;
-            i--;
-            j--;
-        }
-        i = r-1; j = c+1;  // ← top-right diagonal
-        while(i >= 0 && j < n){
-            if(grid[i][j] == 'Q') return false;
-            i--;
-            j++;
-        }
-        return true;
     }
 }
