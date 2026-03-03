@@ -2,6 +2,7 @@ class Solution {
     public List<String> letterCombinations(String digits) {
         String[] phone = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> ans = new ArrayList<>();
+        if(digits.isEmpty()) return ans;  // ← add before dfs call
         dfs(digits, phone, 0, new StringBuilder(), ans);
         return ans;
     }
