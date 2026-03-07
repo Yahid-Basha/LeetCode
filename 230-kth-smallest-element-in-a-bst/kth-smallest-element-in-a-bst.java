@@ -22,6 +22,7 @@ class Solution {
         return result;
     }
     public void inorder(TreeNode root){
+        if(count <= 0) return;
         if(root == null) return;
         inorder(root.left);
         count--;
