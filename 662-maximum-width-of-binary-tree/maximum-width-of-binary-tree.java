@@ -16,9 +16,9 @@
 class Solution {
     class Node{
         TreeNode node;
-        int pos;
+        long pos;
         
-        Node(TreeNode node, int pos){
+        Node(TreeNode node, long pos){
             this.node = node;
             this.pos = pos;
         }
@@ -30,11 +30,11 @@ class Solution {
 
         while(!queue.isEmpty()){
             int size = queue.size();
-            int firstPos = 0, lastPos = 0;
+            long firstPos = 0, lastPos = 0;
             for(int i = 0; i < size; i++){
                 Node node = queue.poll();
                 TreeNode curr = node.node;
-                int pos = node.pos;
+                long pos = node.pos;
                 if(i == 0) firstPos = pos;
                 if(i == size-1) lastPos = pos; 
                 if(curr.left != null){
@@ -44,7 +44,7 @@ class Solution {
                     queue.offer(new Node(curr.right, 2*pos+1));
                 }
             }
-            maxWidth = Math.max(maxWidth, lastPos - firstPos +1);
+            maxWidth = Math.max(maxWidth, (int)(lastPos - firstPos +1));
         }
         return maxWidth;
     }
