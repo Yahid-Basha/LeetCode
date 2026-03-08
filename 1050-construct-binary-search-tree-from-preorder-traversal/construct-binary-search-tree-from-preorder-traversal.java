@@ -20,8 +20,8 @@ class Solution {
     TreeNode build(int[] preorder, int start, int end){
         if(start > end) return null;
         TreeNode root = new TreeNode(preorder[start]);
-        int j = start;
-        while(j < preorder.length && preorder[j] <= root.val) j++;
+        int j = start+1;
+        while(j < preorder.length && preorder[j] < root.val) j++;
         root.left = build(preorder, start+1, j-1);
         root.right = build(preorder, j, end);
         return root;
