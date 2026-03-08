@@ -15,11 +15,9 @@
  */
 class BSTIterator {
     Stack<TreeNode> stack;
-    TreeNode curr;
 
     public BSTIterator(TreeNode root) {
         stack = new Stack<>();
-        if(root != null) curr = root;
         while(root != null){
             stack.push(root);
             root = root.left;
@@ -27,7 +25,7 @@ class BSTIterator {
     }
     
     public int next() {
-        curr = stack.pop();
+        TreeNode curr = stack.pop();
         TreeNode node = curr.right;
         while(node != null){
             stack.push(node);
