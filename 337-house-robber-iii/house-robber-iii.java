@@ -14,19 +14,27 @@
  * }
  */
 class Solution {
+    class Rob{
+        int skipCurrent;
+        int robCurrent;
+        Rob(int s, int r){
+            skipCurrent = s;
+            robCurrent = r;
+        }
+    }
     public int rob(TreeNode root) {
-        int[] ans = explore(root);
-        return Math.max(ans[0],ans[1]);
+        Rob ans = explore(root);
+        return Math.max(ans.robCurrent, ans.skipCurrent);
     }
-    int[] explore(TreeNode root){
-        if(root == null) return new int[2];
+    Rob explore(TreeNode root){
+        if(root == null) return new Rob(0,0);
+        Rob left = explore(root.left);
+        Rob right = explore(root.right);
 
-        int[] left = explore(root.left);
-        int[] right = explore(root.right);
+        int robCurrent = left.skipCurrent + right.skipCurrent + root.val;
+        int skipCurrent = Math.max(left.robCurrent, left.skipCurrent)+ Math.max(right.robCurrent, right.skipCurrent);
 
-        int robCurrent = root.val+left[1]+right[1];
-        int skipCurrent = Math.max(left[0], left[1])+Math.max(right[0], right[1]);
-
-        return new int[]{robCurrent, skipCurrent};
+        return new Rob(skipCurrent, robCurrent);
     }
+
 }
