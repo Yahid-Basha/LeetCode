@@ -14,13 +14,14 @@
  * }
  */
 class Solution {
+    TreeNode curr;
     public List<Integer> inorderTraversal(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> ans = new ArrayList<>();
-        TreeNode curr = root;
+        curr = root;
         while(curr != null || !stack.isEmpty()){
             while(curr != null){
-                stack.push(curr);
+                stack.add(curr);
                 curr = curr.left;
             }
 
