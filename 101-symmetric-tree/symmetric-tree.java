@@ -17,13 +17,10 @@ class Solution {
     public boolean isSymmetric(TreeNode root) {
         Stack<TreeNode[]> stack = new Stack<>();
         stack.push(new TreeNode[]{root.left, root.right});
-        
         while(!stack.isEmpty()){
             TreeNode[] curr = stack.pop();
-            TreeNode left = curr[0];
-            TreeNode right = curr[1];
-
-            if(left == null && right == null) continue;
+            TreeNode left = curr[0], right = curr[1];
+            if(left == right) continue;
             if(left == null || right == null) return false;
             if(left.val != right.val) return false;
 
