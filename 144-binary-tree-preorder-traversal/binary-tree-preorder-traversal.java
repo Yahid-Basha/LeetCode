@@ -20,10 +20,11 @@ class Solution {
         if(root == null) return ans;
         stack.push(root);
         while(!stack.isEmpty()){
-            TreeNode node = stack.pop();
-            ans.add(node.val);
-            if(node.right != null) stack.push(node.right);
-            if(node.left != null) stack.push(node.left);
+            TreeNode curr = stack.pop();
+            ans.add(curr.val);
+
+            if(curr.right != null) stack.push(curr.right);
+            if(curr.left != null) stack.push(curr.left);
         }
         return ans;
     }
