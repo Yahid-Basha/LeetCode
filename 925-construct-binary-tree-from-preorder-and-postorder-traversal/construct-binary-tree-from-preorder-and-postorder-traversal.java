@@ -15,17 +15,17 @@
  */
 class Solution {
     public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
-        return build(preorder, postorder, 0, preorder.length-1, 0 , postorder.length-1);
+        return build(preorder, postorder, 0, preorder.length-1, 0, postorder.length-1);
     }
     TreeNode build(int[] preorder, int[] postorder, int preStart, int preEnd, int posStart, int posEnd){
-        if(preStart > preEnd) return null;
+        if(preStart > preEnd || posStart > posEnd) return null;
         if(preStart == preEnd) return new TreeNode(preorder[preStart]);
         TreeNode root = new TreeNode(preorder[preStart]);
-        int j = 0;
-        while(j < postorder.length && preStart+1 < preorder.length && postorder[j] != preorder[preStart+1]) j++;
-        int k = j - posStart + 1;
-        root.left = build(preorder, postorder, preStart+1, preStart+k, posStart, posStart+k-1);
-        root.right = build(preorder, postorder, preStart+k+1, preEnd, posStart+k, posEnd-1);
+        int j = posStart;
+        while(j < postorder.length && preStart < preorder.length-1 && preorder[preStart+1] != postorder[j]) j++;
+        int k = j-posStart;
+        root.left = build(preorder,postorder, preStart+1, preStart+k+1, posStart, posStart+k);
+        root.right = build(preorder,postorder, preStart+k+2, preEnd, posStart+k+1, posEnd-1);
         return root;
     }
 }
