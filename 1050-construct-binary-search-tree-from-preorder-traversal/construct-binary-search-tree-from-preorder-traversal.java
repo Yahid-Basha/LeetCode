@@ -19,7 +19,6 @@ class Solution {
     }
     TreeNode build(int[] preorder, int preStart, int preEnd){
         if(preStart > preEnd) return null;
-        if(preEnd == preStart) return new TreeNode(preorder[preStart]);
         TreeNode root = new TreeNode(preorder[preStart]);
         int j = preStart+1;
         while(j < preorder.length && preorder[j] < root.val) j++;
