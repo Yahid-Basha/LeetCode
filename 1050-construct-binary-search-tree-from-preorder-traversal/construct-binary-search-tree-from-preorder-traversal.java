@@ -17,13 +17,16 @@ class Solution {
     public TreeNode bstFromPreorder(int[] preorder) {
         return build(preorder, 0, preorder.length-1);
     }
-    TreeNode build(int[] preorder, int start, int end){
-        if(start > end) return null;
-        TreeNode root = new TreeNode(preorder[start]);
-        int j = start+1;
+    TreeNode build(int[] preorder, int preStart, int preEnd){
+        if(preStart > preEnd) return null;
+        if(preEnd == preStart) return new TreeNode(preorder[preStart]);
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int j = preStart+1;
         while(j < preorder.length && preorder[j] < root.val) j++;
-        root.left = build(preorder, start+1, j-1);
-        root.right = build(preorder, j, end);
+        int k = j - preStart - 1;
+
+        root.left = build(preorder, preStart+1, preStart+k);
+        root.right = build(preorder, preStart+k+1, preEnd);
         return root;
     }
 }
