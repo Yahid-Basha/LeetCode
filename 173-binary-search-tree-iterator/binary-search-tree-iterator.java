@@ -15,12 +15,12 @@
  */
 class BSTIterator {
     Stack<TreeNode> stack;
-
     public BSTIterator(TreeNode root) {
         stack = new Stack<>();
-        while(root != null){
-            stack.push(root);
-            root = root.left;
+        TreeNode curr = root;
+        while(curr != null){
+            stack.push(curr);
+            curr = curr.left;
         }
     }
     
