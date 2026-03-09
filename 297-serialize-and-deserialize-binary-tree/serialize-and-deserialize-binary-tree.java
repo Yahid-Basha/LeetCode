@@ -8,46 +8,39 @@
  * }
  */
 public class Codec {
-    List<Integer> list;
+    int idx = 0;
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        list = new ArrayList<>();
-        preorder(root);
+        List<Integer> list = new ArrayList<>();
+        preorder(root, list);
         return list.toString();
     }
 
-    void preorder(TreeNode root){
+    void preorder(TreeNode root, List<Integer> list){
         if(root == null){
-            list.add(-2000);
+            list.add(Integer.MIN_VALUE);
             return;
-        }
+        };
         list.add(root.val);
-        preorder(root.left);
-        preorder(root.right);
+        preorder(root.left, list);
+        preorder(root.right, list);
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         data = data.substring(1, data.length()-1);
         String[] values = data.split(", ");
-        int[] preorder = new int[values.length];
-        int i = 0;
-        for (String s : values) {
-            preorder[i++] = Integer.parseInt(s);
-        }
-        return build(preorder, new int[]{0});
+        return build(values);
     }
-
-    // [1,2,null,null,3,4,null,null,5,null,null]
-    TreeNode build(int[] preorder, int idx[]){
-        if(preorder[idx[0]] == -2000) {
-            idx[0]++;
+    TreeNode build(String[] values){
+        if(Integer.parseInt(values[idx]) == Integer.MIN_VALUE) {
+            idx++;
             return null;
-        };
-        TreeNode root = new TreeNode(preorder[idx[0]]);
-        idx[0]++;
-        root.left = build(preorder, idx);
-        root.right = build(preorder, idx);
+        }
+        TreeNode root = new TreeNode(Integer.parseInt(values[idx]));
+        idx++;
+        root.left = build(values);
+        root.right = build(values);
         return root;
     }
 }
