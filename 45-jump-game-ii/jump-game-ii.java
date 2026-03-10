@@ -8,9 +8,6 @@ class Solution {
             if(i == currLimit){
                 jumps++;
                 currLimit = maxSoFar;
-                if(currLimit > nums.length-1){
-                    return jumps;
-                }
             }
         }
         return jumps;
