@@ -33,8 +33,7 @@ class Solution {
         }
         if(head == null){
             temp.next = tail;
-        }
-        if(tail == null){
+        }else{
             temp.next = head;
         }
         head = dummy.next;
