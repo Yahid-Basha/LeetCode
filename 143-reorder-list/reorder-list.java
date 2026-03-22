@@ -36,7 +36,6 @@ class Solution {
         }else{
             temp.next = head;
         }
-        head = dummy.next;
     }
     public ListNode reverseList(ListNode head) {
         if(head == null) return head;
