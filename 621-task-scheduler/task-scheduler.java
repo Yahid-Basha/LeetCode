@@ -13,17 +13,17 @@ class Solution {
         Queue<int[]> que = new LinkedList<>();
         while(!heap.isEmpty() || !que.isEmpty()){
             time++;
-
             if(heap.isEmpty()){
+                // if heap is empty skip to next time (skipped parts are idle)
                 time = que.peek()[1];
             }else{
+                // next high frequent item polled and pushed to que
                 int count = heap.poll()-1;
-                if(count > 0){
-                    que.offer(new int[]{count, time+n});
-                }
+                if(count > 0) que.offer(new int[]{count, time+n});
             }
 
-            if(!que.isEmpty() && que.peek()[1] == time){
+            // scnario where an item is available from queue 
+            if(!que.isEmpty() && time == que.peek()[1]){
                 heap.offer(que.poll()[0]);
             }
         }
