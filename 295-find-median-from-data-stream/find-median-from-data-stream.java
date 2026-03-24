@@ -5,8 +5,8 @@ class MedianFinder {
     PriorityQueue<Integer> rightHeap;
 
     public MedianFinder() {
-        leftHeap = new PriorityQueue<>();
-        rightHeap = new PriorityQueue<>((a,b)->(b-a));
+        leftHeap = new PriorityQueue<>((a,b)->(b-a));
+        rightHeap = new PriorityQueue<>();
     }
     
     public void addNum(int num) {
