@@ -15,19 +15,15 @@
  */
 class Solution {
     public TreeNode removeLeafNodes(TreeNode root, int target) {
-        return solve(root, target);
-    }
-    public TreeNode solve(TreeNode root, int target){
         if(root == null) return null;
-        if(root.val == target && root.left == null && root.right == null){
-            return null;
-        }
+
         root.left = removeLeafNodes(root.left, target);
         root.right = removeLeafNodes(root.right, target);
 
         if(root.val == target && root.left == null && root.right == null){
             return null;
         }
+        
         return root;
     }
 }
