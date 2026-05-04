@@ -1,35 +1,27 @@
 class Solution {
-    Map<Integer, List<String>> map;
-    Set<String> dict;
+    List<String> res;
     public List<String> wordBreak(String s, List<String> wordDict) {
-        dict = new HashSet<>(wordDict);
-        map = new HashMap<>();
-        solve(s, 0);
-        return map.getOrDefault(0, new ArrayList<>());
+        res = new ArrayList<>();
+        solve(0, s, wordDict, new StringBuilder());
+        return res;
     }
-    public List<String> solve(String s, int start){
-        if(map.containsKey(start)) return map.get(start);
-
-        List<String> result = new ArrayList<>();
-
-        if(start == s.length()){
-            result.add("");
-            return result;
+    public void solve(int i, String s, List<String> wordDict, StringBuilder sb){
+        if( i == s.length()){
+            res.add(sb.toString());
+            return;
         }
-
-        for(int end = start+1; end <= s.length(); end++ ){
-            String word = s.substring(start,end);
-            if(dict.contains(word)){
-                List<String> suffixes = solve(s, end);
-
-                for(String suffix: suffixes){
-                    String space = suffix.isEmpty() ? "" : " ";
-                    result.add(word + space + suffix);
+        for(String w: wordDict){
+            if(i+w.length() <= s.length()){
+                if(s.substring(i, i+w.length()).equals(w)){
+                    int length = sb.length();
+                    if(!sb.isEmpty()){
+                        sb.append(" ");
+                    }
+                    sb.append(w);
+                    solve(i+w.length(), s, wordDict, sb);
+                    sb.setLength(length);
                 }
             }
         }
-
-        map.put(start, result);
-        return result;
     }
 }
