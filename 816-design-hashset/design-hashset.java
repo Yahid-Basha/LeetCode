@@ -1,26 +1,30 @@
 class MyHashSet {
-    int[] set;
+    int SIZE = 1009;
+    List<Integer>[] list;
+
     public MyHashSet() {
-        set = new int[1000000];
-        Arrays.fill(set, -1);
+        list = new ArrayList[SIZE];
     }
     
-    public int getHash(int key){
-        return key%1000000; 
-    }
-
     public void add(int key) {
-        set[getHash(key)] = key;
+        int hash = key%SIZE;
+        if(list[hash] == null){
+            list[hash] = new ArrayList<>();
+        }
+        if(!list[hash].contains(key)) list[hash].add(key);
     }
     
     public void remove(int key) {
-        set[getHash(key)] = -1;
+        int hash = key%SIZE;
+        if(list[hash] != null && list[hash].contains(key)){
+            list[hash].remove(Integer.valueOf(key));
+        }
     }
     
     public boolean contains(int key) {
-        if(set[getHash(key)] == key){
+        int hash = key%SIZE;
+        if(list[hash] != null && list[hash].contains(key))
             return true;
-        }
         return false;
     }
 }
