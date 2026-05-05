@@ -12,12 +12,13 @@ class StockSpanner {
         while(!stocks.isEmpty() && stocks.peek()[0] <= price){
             stocks.pop();
         }
+        int ans;
         if(stocks.isEmpty()) {
-            stocks.push(new int[]{price, size});
-            return size;
+            ans = size;
+        }else{
+            ans = size-stocks.peek()[1];
         }
-        // System.out.println(ans);
-        int ans = size-stocks.peek()[1];
+        
         stocks.push(new int[]{price, size});
         return ans;
     }
