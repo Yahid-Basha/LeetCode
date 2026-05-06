@@ -1,34 +1,27 @@
 class Solution {
     public boolean canReach(String s, int minJump, int maxJump) {
+        int n = s.length();
+        if(s.charAt(n-1) != '0') return false;
 
-        int dp[] = new int[s.length()];
-        int preSum[] = new int[s.length()];
-        dp[0] = 1;
+        int dp[] = new int[n];
+        dp[0]=1;
 
-        for(int i = 0; i < minJump; i++){
-            preSum[i] = 1;
+        int preSum[] = new int[n+1];
+        preSum[0] = 0;
+
+        for(int i = 0; i < n; i++){
+            if(i >= minJump){
+                int upper = i - minJump;
+                int lower = Math.max(i - maxJump, 0);
+
+                int reachable = preSum[upper+1]-preSum[lower];
+                if(s.charAt(i) == '0' && reachable > 0){
+                    dp[i] = 1;
+                }
+            }
+            preSum[i+1] = preSum[i] + dp[i];
         }
-        
-        for (int i = minJump; i < s.length(); i++) {
-    int upper = i - minJump;
-    int lower = i - maxJump;
-    
-    // Check if any index in [lower, upper] is reachable
-    int reachableInWindow;
-    if (lower <= 0) {
-        reachableInWindow = preSum[upper];
-    } else {
-        reachableInWindow = preSum[upper] - preSum[lower - 1];
-    }
 
-    if (s.charAt(i) == '0' && reachableInWindow > 0) {
-        dp[i] = 1;
-    }
-    
-    // Always accumulate the prefix sum based on the previous value
-    preSum[i] = preSum[i - 1] + dp[i];
-}
-        if(dp[s.length()-1] == 1) return true;
-        return false;
+        return dp[n-1] > 0;
     }
 }
